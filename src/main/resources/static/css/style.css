@@ -11,15 +11,7 @@ body{
     background: linear-gradient(rgba(0,0,0,8),rgba(20, 27, 27, 0.8)),url(../img/homeimage.jpg);
     background-size: cover;
 }
-.box {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .box div {
-    width: 495px;
-    height: 60px;
-  }
-  .box div .button{
-    margin: 204px 1px;
-  }
+.mycard{
+  padding: 20px;
+  background-color: #ffff;
+}

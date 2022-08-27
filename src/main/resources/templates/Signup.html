@@ -1,44 +1,54 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title th:text="${title}"></title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title th:text="${title}"></title>
 </head>
+
 <body>
-<section >
-    <div class="box">
-    <div>
-    <form>
-        <h1 class="text-center text-primary" >Signup Here</h1>
-        <div class="form-group">
-          <label for="name" class="text-primary">Name</label>
-          <input placeholder="Enter Your Name" type="text" class="form-control form-control bg-transparent" id="name" required>
-        </div>
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 offset-md-3">
+          <div class="mycard">
+            <h1 class="text-center text-primary">Signup Here</h1>
+            <form action="" method="post">
+              <div class="form-group">
+                <label for="name" class="text-primary">Name</label>
+                <input placeholder="Enter Your Name" type="text" class="form-control form-control bg-transparent"
+                  id="name" required>
+              </div>
 
-        <div class="form-group">
-            <label for="email" class="text-primary">Email</label>
-            <input placeholder="Enter Your Email" type="email" class="form-control form-control bg-transparent" id="email" required>
-        </div>
+              <div class="form-group">
+                <label for="email" class="text-primary">Email</label>
+                <input placeholder="Enter Your Email" type="email" class="form-control form-control bg-transparent"
+                  id="email" required>
+              </div>
 
-        <div class="form-group">
-          <label for="password" class="text-primary">Password</label>
-          <input placeholder="Enter the password" type="password" class="form-control form-control bg-transparent" id="password" required>
-        </div>
+              <div class="form-group">
+                <label for="password" class="text-primary">Password</label>
+                <input placeholder="Enter the password" type="password" class="form-control form-control bg-transparent"
+                  id="password" required>
+              </div>
 
-        <div class="form-group">
-            <textarea class="form-control bg-transparent" placeholder="write about yourself" rows="10"></textarea>
+              <div class="form-group">
+                <textarea class="form-control bg-transparent" placeholder="write about yourself" rows="10"></textarea>
+              </div>
+              <div class="container">
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="reset" class="btn btn-secondary">Reset</button>
+              </div>
+            </form>
+          </div>
         </div>
-        <div class="button">
-        <button type="submit" class="btn btn-primary">Submit</button>
-    <button type="reset" class="btn btn-secondary">Reset</button>
-    </div>
-      </form>
       </div>
     </div>
 
-</section>
+  </section>
 
 </body>
+
 </html>
