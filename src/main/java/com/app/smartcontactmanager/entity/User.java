@@ -2,21 +2,19 @@ package com.app.smartcontactmanager.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "USER")
 @Setter
 @Getter
 @AllArgsConstructor
-@NoArgsConstructor
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private String id;
 
     private String name;
@@ -37,4 +35,7 @@ public class User {
 
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "user")
     private List<Contact> contacts;
+    public User(){
+        this.id= UUID.randomUUID().toString();
+    }
 }
