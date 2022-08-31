@@ -5,6 +5,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -15,10 +16,11 @@ public class CustomUserDetails implements UserDetails {
     }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-//        List<SimpleGrantedAuthority> simpleGrantedAuthorityList=new ArrayList<>();
+        List<SimpleGrantedAuthority> simpleGrantedAuthorityList=new ArrayList<>();
 //        user.getRole().stream().forEach(role->simpleGrantedAuthorityList.add(new SimpleGrantedAuthority(role)));
         SimpleGrantedAuthority simpleGrantedAuthority=new SimpleGrantedAuthority(user.getRole());
-        return List.of(simpleGrantedAuthority);
+        simpleGrantedAuthorityList.add(simpleGrantedAuthority);
+        return simpleGrantedAuthorityList;
     }
 
     @Override
