@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class UserController {
     @GetMapping("/dashboard")
     public String dashboard(){
-        return "normal/user_dashboard";
+        return "pageunderconstruction";
     }
 }

@@ -1,6 +1,9 @@
-body{
+
+body, html {
     background-color:#F9F1F0;
-}
+    height: 100%;
+    margin: 0;
+  }
 
 .bg-primary{
     background-color: aquamarine;
@@ -16,6 +19,7 @@ body{
   background-color: #ffff;
 }
 
+/* login-page-starts */
 #login .container #login-row #login-column #login-box {
     margin-top: 120px;
     max-width: 600px;
@@ -29,3 +33,26 @@ body{
   #login .container #login-row #login-column #login-box #login-form #register-link {
     margin-top: -47px;
   }
+/* login-page-ends */
+
+/* under-constructions-starts */
+.bgimg {
+    /* Background image */
+    background-image: url(../img/progress.jpg);
+    /* Full-screen */
+    height: 100%;
+    /* Center the background image */
+    background-position: center;
+    /* Scale and zoom in the image */
+    background-size: cover;
+    /* Add position: relative to enable absolutely positioned elements inside the image (place text) */
+    position: relative;
+    /* Add a white text color to all elements inside the .bgimg container */
+    color: white;
+    /* Add a font */
+    font-family: "Courier New", Courier, monospace;
+    /* Set the font-size to 25 pixels */
+    font-size: 25px;
+  }
+  /* under-constructions-ends */
+
