@@ -39,7 +39,7 @@ public class ContactServiceImpl implements ContactService {
             Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
             contactRepository.save(contact);
         } catch (Exception e) {
-            log.error("error while saving contact {}", e);
+            log.error("error while saving contact ", e);
 //            return new Message(e.getMessage(),"danger");
             return new Message("something went wrong", "danger");
         }
