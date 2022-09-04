@@ -28,8 +28,8 @@ public class ContactServiceImpl implements ContactService {
         try {
             contact.setUser(user);
             contact.setImageName(file.getOriginalFilename());
-            ClassPathResource classPathResource = new ClassPathResource("/static/img");
-            Path path = Paths.get(classPathResource.getPath() + File.separator + file.getOriginalFilename());
+            File destFile= new ClassPathResource("/static/img").getFile();
+            Path path = Paths.get(destFile.getPath() + File.separator + file.getOriginalFilename());
             Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
             contactRepository.save(contact);
         } catch (Exception e) {
