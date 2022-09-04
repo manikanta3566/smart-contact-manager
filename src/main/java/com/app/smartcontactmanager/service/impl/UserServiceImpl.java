@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.util.Objects;
 
 @Slf4j
@@ -34,6 +35,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         user.setActive(true);
         user.setImageUrl("default_url");
         return userRepository.save(user);
+    }
+
+    @Override
+    public User getUserByEmail(Principal principal) {
+        String username = principal.getName();
+        User user = userRepository.findByEmail(username);
+        return user;
     }
 
     @Override

@@ -24,7 +24,7 @@ public class Contact {
 
     private String phone;
 
-    private String imageUrl;
+    private String imageName;
 
     @Column(length = 500)
     private String description;
