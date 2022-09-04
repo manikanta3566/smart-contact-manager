@@ -7,6 +7,7 @@ import com.app.smartcontactmanager.repository.ContactRepository;
 import com.app.smartcontactmanager.service.ContactService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,7 +20,6 @@ import java.nio.file.StandardCopyOption;
 @Slf4j
 @Service
 public class ContactServiceImpl implements ContactService {
-    private final String URL="e:/app/target/smart-contact-manager-0.0.1-SNAPSHOT.jar!/BOOT-INF/classes!/static/img";
     @Autowired
     private ContactRepository contactRepository;
 
@@ -28,15 +28,9 @@ public class ContactServiceImpl implements ContactService {
         try {
             contact.setUser(user);
             contact.setImageName(file.getOriginalFilename());
-
-            //for local working
-//            File destFile= new ClassPathResource("/static/img").getFile();
-//            Path path = Paths.get(destFile.getPath() + File.separator + file.getOriginalFilename());
-//            Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-
-            //for heroku working
-            Path path = Paths.get(URL + File.separator + file.getOriginalFilename());
-            Files.copy(file.getInputStream(), path.toAbsolutePath(), StandardCopyOption.REPLACE_EXISTING);
+            File destFile= new ClassPathResource("/static/img").getFile();
+            Path path = Paths.get(destFile.getPath() + File.separator + file.getOriginalFilename());
+            Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
             contactRepository.save(contact);
         } catch (Exception e) {
             log.error("error while saving contact {}", e);
