@@ -36,10 +36,10 @@ public class ContactServiceImpl implements ContactService {
 
             //for heroku working
             Path path = Paths.get(URL + File.separator + file.getOriginalFilename());
-            Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+            Files.copy(file.getInputStream(), path.toAbsolutePath(), StandardCopyOption.REPLACE_EXISTING);
             contactRepository.save(contact);
         } catch (Exception e) {
-            log.error("error while saving contact ", e);
+            log.error("error while saving contact {}", e);
 //            return new Message(e.getMessage(),"danger");
             return new Message("something went wrong", "danger");
         }
