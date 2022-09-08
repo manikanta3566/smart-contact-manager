@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  th:replace="normal/base::layout(~{::section})"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title th:text="${title}"></title>
+  </head>
+  <body>
+    <section>
+      <div class="card mr-3 ml-3">
+        <div class="card-body">
+          <h1 class="text-center">Your Contacts</h1>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Work</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="c: ${contacts}">
+                <th scope="row" th:text="${c.name}"></th>
+                <td th:text="${c.email}"></td>
+                <td th:text="${c.phone}"></td>
+                <td th:text="${c.work}"></td>
+                <td>
+                  <a href="#"> <i class="fa fa-trash mr-3"></i></a>
+                  <a href="#"> <i class="fa fa-pencil"></i></a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
