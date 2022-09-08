@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 @RequestMapping("/user")
@@ -44,5 +45,15 @@ public class UserController {
         session.setAttribute("message",message);
         model.addAttribute("user",user);
         return "normal/add_contact_form";
+    }
+
+    @GetMapping("/view-contacts")
+    public String getAllContacts(Model model,Principal principal){
+        User user = userService.getUserByEmail(principal);
+        List<Contact> allContacts = contactService.getAllContacts(user);
+        model.addAttribute("user",user);
+        model.addAttribute("title","view contacts");
+        model.addAttribute("contacts",allContacts);
+        return "normal/view_contacts";
     }
 }
