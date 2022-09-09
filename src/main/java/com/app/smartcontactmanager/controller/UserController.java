@@ -6,6 +6,9 @@ import com.app.smartcontactmanager.helper.Message;
 import com.app.smartcontactmanager.service.ContactService;
 import com.app.smartcontactmanager.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +16,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
-import java.util.List;
 
 @Controller
 @RequestMapping("/user")
@@ -47,13 +49,16 @@ public class UserController {
         return "normal/add_contact_form";
     }
 
-    @GetMapping("/view-contacts")
-    public String getAllContacts(Model model,Principal principal){
+    @GetMapping("/view-contacts/{page}")
+    public String getAllContacts( @PathVariable("page")int page, Model model,Principal principal){
         User user = userService.getUserByEmail(principal);
-        List<Contact> allContacts = contactService.getAllContacts(user);
+        Pageable pageable = PageRequest.of(page, 5);
+        Page<Contact> allContacts = contactService.getAllContacts(user,pageable);
         model.addAttribute("user",user);
         model.addAttribute("title","view contacts");
-        model.addAttribute("contacts",allContacts);
+        model.addAttribute("contacts",allContacts.getContent());
+        model.addAttribute("pageNumber",page);
+        model.addAttribute("totalPages",allContacts.getTotalPages());
         return "normal/view_contacts";
     }
 }
