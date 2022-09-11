@@ -27,12 +27,19 @@
             </thead>
             <tbody>
               <tr th:each="c: ${contacts}">
-                <th scope="row" th:text="${c.name}"></th>
-                <td th:text="${c.email}"></td>
+                <th scope="row">
+                  <img class="my_profile_image"
+                  src=""th:src=@{'/img/'+${c.imageName}} alt="profile image"
+                  srcset="">
+                  <span th:text="${c.name}"></span>
+                </th>
+                <td>
+                  <a href="#" th:href="@{'/user/contacts/'+${c.id}}" ><span th:text="${c.email}"></span></a>
+                </td>
                 <td th:text="${c.phone}"></td>
                 <td th:text="${c.work}"></td>
                 <td>
-                  <a href="#"> <i class="fa fa-trash mr-3"></i></a>
+                  <a href="#" th:onclick="deleteContact([[${c.id}]])"> <i class="fa fa-trash mr-3"></i></a>
                   <a href="#"> <i class="fa fa-pencil"></i></a>
                 </td>
               </tr>

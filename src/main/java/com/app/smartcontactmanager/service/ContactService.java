@@ -10,4 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 public interface ContactService {
     Message SaveContact(User user, Contact contact, MultipartFile file);
     Page<Contact> getAllContacts(User user, Pageable pageable);
+    Contact getContactByIdAndUser(String id,User user);
+
+    void deleteContactById(String id,User user);
 }

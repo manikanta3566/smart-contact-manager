@@ -18,6 +18,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -29,11 +30,13 @@ public class ContactServiceImpl implements ContactService {
     public Message SaveContact(User user, Contact contact, MultipartFile file) {
         try {
             contact.setUser(user);
-            contact.setImageName(file.getOriginalFilename());
             if(!file.isEmpty()) {
+                contact.setImageName(file.getOriginalFilename());
                 File destFile = new ClassPathResource("/static/img").getFile();
                 Path path = Paths.get(destFile.getPath() + File.separator + file.getOriginalFilename());
                 Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+            }else{
+                contact.setImageName("contact.png");
             }
             contactRepository.save(contact);
         } catch (Exception e) {
@@ -48,5 +51,27 @@ public class ContactServiceImpl implements ContactService {
     public Page<Contact> getAllContacts(User user,Pageable  pageable) {
         Page<Contact> contactList = contactRepository.findByUser(user,pageable);
         return contactList;
+    }
+
+    @Override
+    public Contact getContactByIdAndUser(String id, User user) {
+        Optional<Contact> contact = contactRepository.findByIdAndUser(id, user);
+        if(contact.isPresent()){
+            return contact.get();
+        }else {
+            throw new RuntimeException("Contact not found");
+        }
+
+    }
+
+    @Override
+    public void deleteContactById(String id, User user) {
+        Optional<Contact> contact = contactRepository.findByIdAndUser(id, user);
+        if(contact.isPresent()){
+            contact.get().setUser(null);
+             contactRepository.delete(contact.get());
+        }else {
+            throw new RuntimeException("Contact not found");
+        }
     }
 }

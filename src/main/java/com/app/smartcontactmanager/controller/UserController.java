@@ -61,4 +61,32 @@ public class UserController {
         model.addAttribute("totalPages",allContacts.getTotalPages());
         return "normal/view_contacts";
     }
+
+    @GetMapping("/contacts/{id}")
+    public String showSingleContact(@PathVariable("id") String id, Model model, Principal principal) {
+        try {
+            User user = userService.getUserByEmail(principal);
+            Contact contact = contactService.getContactByIdAndUser(id, user);
+            model.addAttribute("user",user);
+            model.addAttribute("contact",contact);
+            model.addAttribute("title","view-single-contact");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "normal/view_single_contact";
+    }
+
+    @GetMapping("/contacts/delete/{id}")
+    public String deleteContact(@PathVariable("id") String id, Model model, Principal principal,HttpSession session){
+        try {
+            User user = userService.getUserByEmail(principal);
+            contactService.deleteContactById(id,user);
+            model.addAttribute("user",user);
+            session.setAttribute("message",new Message("contact is deleted successfully","success"));
+        } catch (Exception e) {
+            e.printStackTrace();
+            session.setAttribute("message",new Message("something went wrong!!","danger"));
+        }
+        return "redirect:/user/view-contacts/0";
+    }
 }

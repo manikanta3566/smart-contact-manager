@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  th:replace="normal/base::layout(~{::section})"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title th:text="${title}"></title>
+  </head>
+  <body>
+    <section>
+      <div class="card mr-3 ml-3">
+        <div class="card-body">
+      <div class="container text-center">
+
+        <img style="width: 200px;height: 200px" class="my_profile_image"
+                  src=""th:src=@{'/img/'+${contact.imageName}} alt="profile image"
+                  srcset="">
+                <h3><span th:text="${contact.name}"></span></h3>
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Email</th>
+                        <th scope="col">Work</th>
+                        <th scope="col">Phone Number</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><span th:text="${contact.email}"></span></td>
+                        <td><span th:text="${contact.work}"></span></td>
+                        <td><span th:text="${contact.phone}"></span></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div class="description mt-3">
+                    <h2 class="text-center">Description</h2>
+                    <th:block th:utext="${contact.description}"></th:block>
+                  </div>
+                  <div class="container text-center mt-3">
+                    <a href="#"  class="btn btn-primary mr-3">Update</a>
+                    <a  href="#" th:onclick="deleteContact([[${contact.id}]])"class="btn btn-danger">Delete</a>
+                </div>
+      </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

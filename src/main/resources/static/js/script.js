@@ -8,3 +8,20 @@ const toogleSideBar = () => {
     $(".content").css("margin-left", "20%");
   }
 }
+
+const deleteContact = (id) => {
+  swal({
+    title: "Are you sure?",
+    text: "you want to delete this contact?",
+    icon: "warning",
+    buttons: true,
+    dangerMode: true,
+  })
+  .then((willDelete) => {
+    if (willDelete) {
+     window.location="/user/contacts/delete/"+id;
+    } else {
+      swal("Your contact is safe");
+    }
+  });
+}

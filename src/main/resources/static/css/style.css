@@ -112,3 +112,11 @@ body, html {
   margin-left: 20%;
 }
   /* content ends */
+
+  .my_profile_image{
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+    border-radius: 50%;
+
+  }
