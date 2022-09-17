@@ -34,13 +34,23 @@
                   <span th:text="${c.name}"></span>
                 </th>
                 <td>
-                  <a href="#" th:href="@{'/user/contacts/'+${c.id}}" ><span th:text="${c.email}"></span></a>
+                  <a href="#" th:href="@{'/user/contacts/'+${c.id}}"
+                    ><span th:text="${c.email}"></span
+                  ></a>
                 </td>
                 <td th:text="${c.phone}"></td>
                 <td th:text="${c.work}"></td>
                 <td>
-                  <a href="#" th:onclick="deleteContact([[${c.id}]])"> <i class="fa fa-trash mr-3"></i></a>
-                  <a href="#"> <i class="fa fa-pencil"></i></a>
+                  <a href="#" th:onclick="deleteContact([[${c.id}]])">
+                    <i class="fa fa-trash mr-3"></i
+                  ></a>
+                 <form 
+                 action="#"
+                 th:action="@{'/user/contacts/show-update-contact/'+${c.id}}"
+                 enctype="multipart/form-data"
+                 method="POST">
+                  <button type="submit"class="mr-2 mt-1" href="#"> <i class="fa fa-pencil"></i></button>
+                </form>
                 </td>
               </tr>
             </tbody>

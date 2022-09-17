@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -73,5 +74,27 @@ public class ContactServiceImpl implements ContactService {
         }else {
             throw new RuntimeException("Contact not found");
         }
+    }
+
+    @Override
+    public Contact updateContact(Contact contact, User user, MultipartFile file, String id) throws IOException {
+        Optional<Contact> contactOptional = contactRepository.findById(id);
+        if(!contactOptional.isPresent()){
+            throw new RuntimeException("contact not found");
+        }
+        contactOptional.get().setUser(user);
+        contactOptional.get().setEmail(contact.getEmail());
+        contactOptional.get().setPhone(contact.getPhone());
+        contactOptional.get().setDescription(contact.getDescription());
+        contactOptional.get().setWork(contact.getWork());
+        contactOptional.get().setName(contact.getName());
+        if(!file.isEmpty()) {
+            contactOptional.get().setImageName(file.getOriginalFilename());
+            File destFile = new ClassPathResource("/static/img").getFile();
+            Path path = Paths.get(destFile.getPath() + File.separator + file.getOriginalFilename());
+            Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+        }
+        Contact saveContact = contactRepository.save(contactOptional.get());
+        return saveContact;
     }
 }

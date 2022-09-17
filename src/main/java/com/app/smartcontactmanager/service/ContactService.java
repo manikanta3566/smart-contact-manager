@@ -7,10 +7,15 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+
 public interface ContactService {
     Message SaveContact(User user, Contact contact, MultipartFile file);
     Page<Contact> getAllContacts(User user, Pageable pageable);
     Contact getContactByIdAndUser(String id,User user);
 
     void deleteContactById(String id,User user);
+
+    Contact updateContact(Contact contact,User user,MultipartFile file,String id) throws IOException;
+
 }

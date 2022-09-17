@@ -89,4 +89,43 @@ public class UserController {
         }
         return "redirect:/user/view-contacts/0";
     }
+
+    @PostMapping("/contacts/show-update-contact/{id}")
+    public String showUpdateContactForm(@PathVariable("id") String id,Model model,Principal principal,HttpSession session){
+        try {
+            User user = userService.getUserByEmail(principal);
+            Contact contact = contactService.getContactByIdAndUser(id, user);
+            model.addAttribute("user",user);
+            model.addAttribute("contact",contact);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return "normal/update_form";
+    }
+
+    @PostMapping("/contacts/update-contact/{id}")
+    public String UpdateContactForm(@PathVariable String id,@ModelAttribute Contact contact,Model model,@RequestParam("image") MultipartFile file,Principal principal,HttpSession session){
+        try {
+            User user = userService.getUserByEmail(principal);
+            Contact contact1 = contactService.updateContact(contact, user, file, id);
+            model.addAttribute("user", user);
+            session.setAttribute("message", new Message("contact is updated successfully", "success"));
+        } catch (Exception e) {
+            e.printStackTrace();
+            session.setAttribute("message", new Message("something went wrong!!", "danger"));
+        }
+
+        return "normal/update_form";
+    }
+
+    @GetMapping("/user-profile")
+    public String showUserProfileDetails(Model model,Principal principal){
+        User user = userService.getUserByEmail(principal);
+        model.addAttribute("title","user-profile");
+        model.addAttribute("user", user);
+        return "normal/user_profile";
+    }
+
+
 }

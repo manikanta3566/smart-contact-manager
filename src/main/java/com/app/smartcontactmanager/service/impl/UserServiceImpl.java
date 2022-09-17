@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 //        user.setRole(Set.of(Role.USER.name()));
         user.setRole(Role.USER.name());
         user.setActive(true);
-        user.setImageUrl("default_url");
+        user.setImageUrl("default.png");
         return userRepository.save(user);
     }
 

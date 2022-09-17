@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  th:replace="normal/base::layout(~{::section})"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title th:text="${title}"></title>
+  </head>
+  <body>
+    <section>
+      <div class="card mr-3 ml-3">
+        <div class="cardbody">
+          <h1 class="text-center">Update contact</h1>
+          <div class="container-fluid mt-1">
+            <div class="row">
+              <div class="col-md-10 offset-md-1">
+                <form
+                  action="#"
+                  th:action="@{'/user/contacts/update-contact/'+${contact.id}}"
+                  th:object="${contact}"
+                  enctype="multipart/form-data"
+                  method="Post"
+                >
+                  <!-- name -->
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                        <i class="fa fa-user"></i>
+                      </div>
+                    </div>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="name"
+                      name="name"
+                      placeholder="Enter the name"
+                      th:value="${contact.name}"
+                    />
+                  </div>
+                  <!-- Name -->
+
+                  <!-- email -->
+                  <div class="input-group mt-3">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                        <i class="fa fa-envelope"></i>
+                      </div>
+                    </div>
+                    <input
+                      type="email"
+                      class="form-control"
+                      id="email"
+                      name="email"
+                      placeholder="Enter the email"
+                      th:value="${contact.email}"
+                    />
+                  </div>
+                  <!-- email -->
+
+                  <!-- work -->
+                  <div class="input-group mt-3">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                        <i class="fa fa-briefcase"></i>
+                      </div>
+                    </div>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="work"
+                      name="work"
+                      placeholder="Enter the Job Name"
+                      th:value="${contact.work}"
+                    />
+                  </div>
+                  <!-- work -->
+
+                  <!-- phone -->
+                  <div class="input-group mt-3">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                        <i class="fa fa-phone"></i>
+                      </div>
+                    </div>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="number"
+                      name="phone"
+                      placeholder="Enter the Phone Number"
+                      th:value="${contact.phone}"
+                    />
+                  </div>
+                  <!-- phone -->
+
+                  <!-- contact description -->
+                  <div class="form-group mt-3">
+                    <textarea
+                      name="description"
+                      id="description"
+                      placeholder="Enter the contact description"
+                      rows="10"
+                      class="form-control"
+                      th:text="${contact.description}"
+                    ></textarea>
+                  </div>
+                  <!-- contact description -->
+
+                  <!-- image upload -->
+                  <input type="file" id="image" name="image" />
+                  <!-- image upload -->
+                  <div class="container text-center mt-3 mb-2">
+                    <button class="btn btn-outline-primary">
+                      Save Contact
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
