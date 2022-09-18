@@ -22,7 +22,6 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/user")
-@CrossOrigin
 public class UserController {
     @Autowired
     private UserService userService;
@@ -137,6 +136,25 @@ public class UserController {
         User user = userService.getUserByEmail(principal);
         List<Contact> contacts = contactService.searchContacts(name, user);
         return new ResponseEntity<>(contacts, HttpStatus.OK);
+    }
+
+    @GetMapping("/settings")
+    public String showSettingsPage(Model model,Principal principal){
+        User user = userService.getUserByEmail(principal);
+        model.addAttribute("title","settings");
+        model.addAttribute("user", user);
+        return "normal/settings";
+    }
+
+    @PostMapping("/change-password")
+    public String changePassword(@RequestParam("oldpassword") String oldPassword,@RequestParam("newpassword") String newPassword,Principal principal,HttpSession session){
+        User user = userService.getUserByEmail(principal);
+        Message message = userService.changePassword(user, oldPassword, newPassword);
+        session.setAttribute("message",message);
+        if(message.getType().equalsIgnoreCase("danger")){
+            return "redirect:/user/settings";
+        }
+        return "redirect:/user/dashboard";
     }
 
 

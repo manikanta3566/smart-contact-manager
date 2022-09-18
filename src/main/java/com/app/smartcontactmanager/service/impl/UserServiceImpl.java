@@ -2,6 +2,7 @@ package com.app.smartcontactmanager.service.impl;
 
 import com.app.smartcontactmanager.entity.User;
 import com.app.smartcontactmanager.enums.Role;
+import com.app.smartcontactmanager.helper.Message;
 import com.app.smartcontactmanager.repository.UserRepository;
 import com.app.smartcontactmanager.security.CustomUserDetails;
 import com.app.smartcontactmanager.service.UserService;
@@ -42,6 +43,19 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         String username = principal.getName();
         User user = userRepository.findByEmail(username);
         return user;
+    }
+
+    @Override
+    public Message changePassword(User user, String oldPassword, String newPassword) {
+        if(passwordEncoder.matches(oldPassword,user.getPassword())){
+            user.setPassword(passwordEncoder.encode(newPassword));
+            log.info("password updated");
+            userRepository.save(user);
+        }else{
+            log.error("old password incorrect");
+            return new Message("Please Enter the old password Correctly","danger");
+        }
+        return new Message("password changed successfully","success");
     }
 
     @Override
