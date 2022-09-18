@@ -19,6 +19,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -96,5 +97,10 @@ public class ContactServiceImpl implements ContactService {
         }
         Contact saveContact = contactRepository.save(contactOptional.get());
         return saveContact;
+    }
+
+    @Override
+    public List<Contact> searchContacts(String name, User user) {
+        return contactRepository.findByNameContainingAndUser(name,user);
     }
 }

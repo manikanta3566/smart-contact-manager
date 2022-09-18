@@ -120,3 +120,14 @@ body, html {
     border-radius: 50%;
 
   }
+
+  /* search contact style  */
+  .search_container{
+    position: relative;
+  }
+  .search_result{
+    position: absolute;
+    width: 100%;
+    background: white;
+    display: none;
+  }

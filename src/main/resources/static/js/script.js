@@ -7,7 +7,7 @@ const toogleSideBar = () => {
     $(".sidebar").css("display", "block");
     $(".content").css("margin-left", "20%");
   }
-}
+};
 
 const deleteContact = (id) => {
   swal({
@@ -16,12 +16,38 @@ const deleteContact = (id) => {
     icon: "warning",
     buttons: true,
     dangerMode: true,
-  })
-  .then((willDelete) => {
+  }).then((willDelete) => {
     if (willDelete) {
-     window.location="/user/contacts/delete/"+id;
+      window.location = "/user/contacts/delete/" + id;
     } else {
       swal("Your contact is safe");
     }
   });
-}
+};
+
+const search = () => {
+  const value = $("#search_input").val();
+  console.log(value);
+  if (!value == "") {
+    const url = `http://localhost:8080/user/search/${value}`;
+    fetch(url)
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        if(data.length=== 0) {
+          $(".search_result").hide();
+        }
+        let html = `<div class="list-group">`;
+        data.forEach((item) => {
+          html += ` <a href="/user/contacts/${item.id}" class="list-group-item list-group-item-action">${item.name}</a>`;
+        });
+        html += ` </div>`;
+        $(".search_result").html(html);
+        $(".search_result").show();
+      })
+      .catch((error) => {
+        $(".search_result").hide();
+      });
+  }
+};
