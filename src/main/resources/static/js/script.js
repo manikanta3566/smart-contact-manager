@@ -30,7 +30,8 @@ const search = () => {
   console.log(value);
   if (!value == "") {
     const url = `http://localhost:8080/user/search/${value}`;
-    fetch(url)
+    const hostUrl=`https://contact-manager-spring-boot.herokuapp.com/user/search/${value}`;
+    fetch(hostUrl)
       .then((response) => {
         return response.json();
       })
